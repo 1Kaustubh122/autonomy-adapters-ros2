@@ -80,30 +80,6 @@ Non-RT messages (`ControllerHealth`) may include richer fields.
 
 ---
 
-## Build
-
-```bash
-source /opt/ros/humble/setup.bash   # or iron
-git clone <repo_url> autonomy-adapters-ros2
-cd autonomy-adapters-ros2
-
-colcon build --symlink-install 
-  --cmake-args 
-    -DADAPTER_RT_SCHED=ON 
-    -DADAPTER_FORCE_RINGBUF_PUB=OFF 
-    -DADAPTER_N_MAX=8
-````
-
-**Note:**
-Grant SCHED_FIFO privileges (example: `sudo setcap cap_sys_nice+ep $(which component_container_mt)`), or the adapter falls back to SCHED_OTHER (pinned) with a health warning.
-
----
-
-## Tests
-
-```bash
-colcon test --event-handlers console_cohesion+
-```
 
 Covers:
 
@@ -112,15 +88,6 @@ Covers:
 * DDS pool stability after 10k publishes.
 * Round-trip PlantState → ICTK → ControlCommand.
 * Param swap jitter ≤ 5% of `dt`.
-
----
-
-## Roadmap
-
-* **PR-A:** Messages, RT core, PID component skeleton, tests, XML configs.
-* **PR-B:** Compliance logger (`raw.binlog`, `metadata.json`).
-* **PR-C:** Demo graphs (planner, safety stop).
-* **PR-D:** Bridges for SFTK and later RLTK.
 
 ---
 
